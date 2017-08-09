@@ -10,7 +10,7 @@ const styles = {
   }
 }
 
-const NavBar = () => {
+const NavBar = (props) => {
   const isActive = false
     return(
       <div>
@@ -24,6 +24,7 @@ const NavBar = () => {
           <Link to="/">Home</Link>
           <Link to="/my-about-page">About</Link>
           <Link to="/my-shop-page">Shop</Link>
+          <h1> {props.cartCount} </h1>
         </nav>
       </div>
     )
