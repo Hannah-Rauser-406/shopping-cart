@@ -14,8 +14,7 @@ class Layout extends Component {
             <Switch>
             <Route exact path="/" component={HomeContainer} />
             <Route path="/my-about-page" component={AboutContainer} />
-            <Route path="/my-shop-page" component={ShopContainer} />
-            <Route path="/shop" render={() => <Shop items={this.props.items} addToCart={this.props.addToCart}/>} />
+            <Route path="/shop" render={() => <Shop items={this.props.items} addToCart={this.props.addToCart}/> } />
             </Switch>
           </div>
       </div>

@@ -21,7 +21,7 @@ const ShopTile = (props ) => {
       <h3>{ item.price }</h3>
       <h5>{ item.id }</h5>
       <img src={ item.img } />
-      <button className='btn-add-to-cart' onClick={() => props.addToCart(props.item)}>Add to Cart</button>
+      <button className='btn-add-to-cart' onClick={() => props.addToCart(item)}>Add to Cart</button>
     </div>
   )
 }
