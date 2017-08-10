@@ -22,9 +22,10 @@ const NavBar = (props) => {
           styles.inactive
         }>
           <Link to="/">Home</Link>
+          <Link to="/profile"> Profile {props.user}</Link>
           <Link to="/my-about-page">About</Link>
           <Link to="/shop">Shop</Link>
-          <h1> {props.cartCount} </h1>
+          <Link to="/cart">Cart: # {props.cartCount} $ {props.totalPrice}</Link>
         </nav>
       </div>
     )

@@ -2,11 +2,13 @@ import React from 'react';
 import Layout from '../../Layout';
 import Faker from 'faker';
 
-class ShopContainer extends React.Component {
+class DataProvider extends React.Component {
   state = {
     title: undefined,
     items: [],
     cart: [],
+    user: null,
+    isDataLoaded: false,
   }
   componentDidMount(){
     this.getTitle();
@@ -14,7 +16,7 @@ class ShopContainer extends React.Component {
   }
   getTitle = () => {
     setTimeout(() => {
-      this.setState ({ title: "this is ShopContainer's title"});
+      this.setState ({ title: "this is DataProvider's title"});
     }, 3000)
   }
   createData = () => {
@@ -27,7 +29,11 @@ class ShopContainer extends React.Component {
         img: Faker.random.image()
       })
     }
-    this.setState({items: tempArray })
+    this.setState({
+      items: tempArray ,
+      user: this.createUser(),
+      isDataLoaded: true,
+    })
   }
     addToCart = (item) => {
     const tempCart = this.state.cart;
@@ -36,19 +42,43 @@ class ShopContainer extends React.Component {
     alert(`${ item.name } was added to your cart`)
     console.log(tempCart)
   }
-
+    createUser = () => {
+      const user = {
+        fName: Faker.name.firstName(),
+        lName: Faker.name.lastName(),
+        email: Faker.internet.email(),
+        avatar: Faker.internet.avatar(),
+      }
+      return user
+    }
   render(){
+    let totalPrice = 0;
+    for(let i=0; i<this.state.cart.length; i+=1){
+      totalPrice += parseFloat(this.state.cart[i].price);
+    }
+    /*
+    easier way for me...
+    let totalPrice = 0;
+    this.state.cart.forEach((element) => totalPrice +=parseFloat(element.price))
+
+/or/
+    const totalPrice = this.state.cart.reduce( (total,e) => total + e.price, 0)
+
+    */
     return(
       <div className='main-div'>
-          <div className='title-div'>
+          <div>
             {
-              this.state.items.length > 0
+              this.state.isDataLoaded
               ?
               <Layout
                 items={this.state.items}
                 title={ this.state.title }
                 addToCart={this.addToCart}
-                cart={this.state.cart}/>
+                cart={this.state.cart}
+                totalPrice={totalPrice.toFixed(2)}
+                user={this.state.user}
+              />
               :
               <h1> Loading... </h1>
             }
@@ -59,4 +89,4 @@ class ShopContainer extends React.Component {
 }
 
 
-export default ShopContainer;
+export default DataProvider;
