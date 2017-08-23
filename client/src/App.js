@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-
-import './App.css';
+import React, { Component } from 'react'
+import {BrowserRouter as Router} from 'react-router-dom'
+import DataProvider from './container/shop/DataProvider'
+import './App.css'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <p>Hello WOrld</p>
-      </div>
+      <Router>
+        <DataProvider />
+      </Router>
     );
   }
 }
