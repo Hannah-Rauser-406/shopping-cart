@@ -9,6 +9,7 @@ class DataProvider extends React.Component {
     cart: [],
     user: null,
     isDataLoaded: false,
+    product: {},
   }
   componentDidMount(){
     this.getTitle();
@@ -35,22 +36,28 @@ class DataProvider extends React.Component {
       isDataLoaded: true,
     })
   }
-    addToCart = (item) => {
+  addToCart = (item) => {
     const tempCart = this.state.cart;
     tempCart.push(item);
     this.setState({ cart: tempCart })
     alert(`${ item.name } was added to your cart`)
     console.log(tempCart)
   }
-    createUser = () => {
-      const user = {
-        fName: Faker.name.firstName(),
-        lName: Faker.name.lastName(),
-        email: Faker.internet.email(),
-        avatar: Faker.internet.avatar(),
-      }
-      return user
+  createUser = () => {
+    const user = {
+      fName: Faker.name.firstName(),
+      lName: Faker.name.lastName(),
+      email: Faker.internet.email(),
+      avatar: Faker.internet.avatar(),
     }
+    return user
+  }
+  onChange = (type, value) => {
+    const newProduct = this.state.product
+    newProduct[type] = value
+    this.setState({ product: newProduct })
+    console.log(this.state.product)
+  }
   render(){
     let totalPrice = 0;
     for(let i=0; i<this.state.cart.length; i+=1){
@@ -78,6 +85,7 @@ class DataProvider extends React.Component {
                 cart={this.state.cart}
                 totalPrice={totalPrice.toFixed(2)}
                 user={this.state.user}
+                onChange={this.onChange}
               />
               :
               <h1> Loading... </h1>
